@@ -1,13 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 
 require("./bootstrap");
+import Routes from "./Routes";
 
 const App = () => {
     return (
-        <div className="container">
-            App
-        </div>
+        <Router>
+            <div className="container">
+                <Routes />
+            </div>
+        </Router>
     );
 }
 

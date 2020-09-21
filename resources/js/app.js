@@ -8,7 +8,7 @@ import Routes from "./Routes";
 const App = () => {
     return (
         <Router>
-            <div className="container">
+            <div className="container mt-4">
                 <Routes />
             </div>
         </Router>

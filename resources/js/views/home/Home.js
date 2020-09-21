@@ -1,10 +1,11 @@
 import React from "react";
+import Chat from "../../components/chat/Chat";
 
 const Home = () => {
     return (
         <div className="row">
             <div className="col-12">
-                Home page
+                <Chat />
             </div>
         </div>
     );

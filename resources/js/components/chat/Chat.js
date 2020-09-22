@@ -32,7 +32,11 @@ class Chat extends Component {
     }
 
     getMessages() {
-        axios.get('/api/messages').then(response => {
+        axios.get('/api/messages', {
+            params: {
+                "api_token": sessionStorage.getItem("apiToken"),
+            }
+        }).then(response => {
             this.setState({
                 messages: response.data,
             })

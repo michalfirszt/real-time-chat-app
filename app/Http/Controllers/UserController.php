@@ -8,6 +8,17 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     /**
+     * Logged user details
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function user(Request $request)
+    {
+        return $request->user();
+    }
+
+    /**
      * Handle a login request
      * 
      * @param \Illuminate\Http\Request $request

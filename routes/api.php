@@ -20,9 +20,8 @@ use App\Http\Controllers\MessageController;
 Route::get('login', [UserController::class, 'login'])->name('login');
 
 Route::middleware('auth:api')->group(function () {
-    Route::get('user', function (Request $request) {
-        return $request->user();
-    });
 
+    Route::get('user', [UserController::class, 'user'])->name('user');
     Route::get('messages', [MessageController::class, 'index'])->name('message.index');
+    
 });

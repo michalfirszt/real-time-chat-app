@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use SplObjectStorage;
+use App\Models\User;
 use App\Models\Message;
 use Ratchet\ConnectionInterface;
 use Ratchet\MessageComponentInterface;
@@ -69,9 +70,12 @@ class ChatController extends Controller implements MessageComponentInterface
     {
         $data = json_decode($data);
 
+        $user = User::where("api_token", "=", $data->apiToken)->first();
+
         switch ($data->type) {
             case "message":
                 $message = Message::create([
+                    "user_id" => $user->id,
                     "content" => $data->message,
                 ]);
 

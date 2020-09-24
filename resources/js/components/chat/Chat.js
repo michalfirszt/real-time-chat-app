@@ -1,17 +1,17 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+import ChatForm from "../chat-form/ChatForm";
+
 class Chat extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             websocket: new WebSocket("ws://localhost:8080"),
-            message: "",
             messages: [],
         };
 
-        this.handleChange = this.handleChange.bind(this);
         this.onMessage = this.onMessage.bind(this);
         this.sendMessage = this.sendMessage.bind(this);
     }
@@ -23,12 +23,6 @@ class Chat extends Component {
         this.state.websocket.onmessage = this.onMessage;
 
         this.getMessages();
-    }
-
-    handleChange(event) {
-        this.setState({
-            [event.target.name]: event.target.value,
-        })
     }
 
     getMessages() {
@@ -87,19 +81,14 @@ class Chat extends Component {
         );
     }
 
-    sendMessage(event) {
-        event.preventDefault();
-
+    sendMessage(message) {
         this.state.websocket.send(
             JSON.stringify({
                 "type": "message",
-                "message": this.state.message,
+                "message": message,
+                "apiToken": sessionStorage.getItem("apiToken"),
             })
         );
-
-        this.setState({
-            message: "",
-        });
     }
 
     render() {
@@ -116,20 +105,7 @@ class Chat extends Component {
                             </ul>
                         </div>
                         <div className="card-footer">
-                            <form onSubmit={this.sendMessage}>
-                                <div className="form-group">
-                                    <input 
-                                        name="message" 
-                                        className="form-control" 
-                                        onChange={this.handleChange} 
-                                        value={this.state.message}
-                                        placeholder="Type message here" 
-                                        required/>
-                                </div>
-                                <div className="form-group">
-                                    <input type="submit" className="btn btn-primary" value="Send"/>
-                                </div>
-                            </form>
+                            <ChatForm sendMessage={this.sendMessage} />
                         </div>
                     </div>
                 </div>

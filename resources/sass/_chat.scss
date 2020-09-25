@@ -1,0 +1,11 @@
+.chat-card .card-body {
+    padding-bottom: 0;
+    padding-top: 0;
+    overflow-y: scroll;
+    height: 300px;
+}
+
+.chat-card .card-body ul {
+    position: relative;
+    list-style: none;
+}

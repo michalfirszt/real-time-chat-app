@@ -78,11 +78,20 @@ class Chat extends Component {
             this.state.messages.map(message => {
                 return (
                     <li key={message.id} className="my-4">
-                        <div className="font-weight-bold">
-                            {message.user.name}
-                        </div>
-                        <div>
-                            {message.content}
+                        <div className="row">
+                            <div className="col-lg-1 col-md-2 col-sm-4">
+                                <div className="avatar font-weight-bold">
+                                    {message.user.name.charAt(0).toUpperCase()}
+                                </div>
+                            </div>
+                            <div className="col-lg-11 col-md-10 col-sm-8">
+                                <div className="font-weight-bold">
+                                    {message.user.name}
+                                </div>
+                                <div>
+                                    {message.content}
+                                </div>
+                            </div>
                         </div>
                         <hr />
                     </li>

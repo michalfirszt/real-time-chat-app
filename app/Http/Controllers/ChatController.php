@@ -79,6 +79,8 @@ class ChatController extends Controller implements MessageComponentInterface
                     "content" => $data->message,
                 ]);
 
+                $message->user = $user;
+
                 foreach ($this->clients as $client) {
                     $client->send(json_encode([
                         "type" => $data->type,

@@ -12,6 +12,7 @@ class Chat extends Component {
             messages: [],
         };
 
+        this.messagesEnd = React.createRef();
         this.onMessage = this.onMessage.bind(this);
         this.sendMessage = this.sendMessage.bind(this);
     }
@@ -33,7 +34,9 @@ class Chat extends Component {
         }).then(response => {
             this.setState({
                 messages: response.data,
-            })
+            });
+
+            this.messagesEnd.current.scrollIntoView({behavior: "auto"});
         });
     }
 
@@ -60,6 +63,7 @@ class Chat extends Component {
                     messages: newMessages,
                 });
 
+                this.messagesEnd.current.scrollIntoView({behavior: "smooth"});
                 break;
             }
 
@@ -73,8 +77,23 @@ class Chat extends Component {
         return (
             this.state.messages.map(message => {
                 return (
-                    <li key={message.id}>
-                        {message.content}
+                    <li key={message.id} className="my-4">
+                        <div className="row">
+                            <div className="col-lg-1 col-md-2 col-sm-4">
+                                <div className="avatar font-weight-bold">
+                                    {message.user.name.charAt(0).toUpperCase()}
+                                </div>
+                            </div>
+                            <div className="col-lg-11 col-md-10 col-sm-8">
+                                <div className="font-weight-bold">
+                                    {message.user.name}
+                                </div>
+                                <div>
+                                    {message.content}
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
                     </li>
                 );
             })
@@ -95,7 +114,7 @@ class Chat extends Component {
         return (
             <div className="row">
                 <div className="col-12">
-                    <div className="card">
+                    <div className="card chat-card">
                         <div className="card-header">
                             Chat
                         </div>
@@ -103,6 +122,7 @@ class Chat extends Component {
                             <ul>
                                 {this.selectMessages()}
                             </ul>
+                            <div ref={this.messagesEnd}></div>
                         </div>
                         <div className="card-footer">
                             <ChatForm sendMessage={this.sendMessage} />
